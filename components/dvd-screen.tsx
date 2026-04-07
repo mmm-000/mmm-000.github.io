@@ -38,8 +38,9 @@ const UI_TEXT = {
     tvRatio: "TV 比率",
     ratio43: "4:3（CRT時代）",
     ratio169: "16:9（ワイド）",
-    customLogoUrl: "カスタムロゴURL（任意）",
-    customLogoPlaceholder: "https://example.com/logo.png",
+    customLogo: "カスタムロゴ",
+    uploadLogo: "画像を選択",
+    resetLogo: "デフォルトに戻す",
     customLogoAlt: "カスタムDVDロゴ",
     pause: "一時停止",
     resume: "再開"
@@ -57,8 +58,9 @@ const UI_TEXT = {
     tvRatio: "TV ratio",
     ratio43: "4:3 (CRT era)",
     ratio169: "16:9 (Widescreen)",
-    customLogoUrl: "Custom logo URL (optional)",
-    customLogoPlaceholder: "https://example.com/logo.png",
+    customLogo: "Custom logo",
+    uploadLogo: "Choose image",
+    resetLogo: "Reset to default",
     customLogoAlt: "Custom DVD logo",
     pause: "Pause",
     resume: "Resume"
@@ -83,12 +85,17 @@ export function DvdScreen() {
   const [language, setLanguage] = useState<UiLanguage>("ja");
   const [color, setColor] = useState<string>(COLLISION_COLORS[0]);
   const [logoSrc, setLogoSrc] = useState<string>("");
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [isPanelOpen, setIsPanelOpen] = useState<boolean>(true);
   const [stageSize, setStageSize] = useState<Position>({ x: 0, y: 0 });
 
   const logoHeight = useMemo<number>(() => Math.round(logoWidth * 0.44), [logoWidth]);
   const ratioValue = useMemo<number>(() => (screenRatio === "4:3" ? 4 / 3 : 16 / 9), [screenRatio]);
   const t = UI_TEXT[language];
+
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+  const defaultLogoSrc = `${basePath}/dvd-logo.png`;
+  const resolvedLogoSrc = logoSrc || defaultLogoSrc;
 
   useEffect(() => {
     if (!stageAreaRef.current) {
@@ -211,6 +218,22 @@ export function DvdScreen() {
     }
   }, [colorMode]);
 
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        if (frameRef.current) {
+          cancelAnimationFrame(frameRef.current);
+          frameRef.current = null;
+        }
+      } else {
+        previousTimeRef.current = null;
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
+  }, []);
+
   return (
     <main className="screen-root">
       <div ref={stageAreaRef} className="stage-area">
@@ -232,24 +255,17 @@ export function DvdScreen() {
               color
             }}
           >
-            {logoSrc ? (
-              <img
-                src={logoSrc}
-                alt={t.customLogoAlt}
-                className="dvd-image"
-                style={{
-                  filter:
-                    colorMode === "cycle"
-                      ? `hue-rotate(${colorIndexRef.current * 45}deg) saturate(1.3)`
-                      : "none"
-                }}
-              />
-            ) : (
-              <>
-                <span className="dvd-wordmark">DVD</span>
-                <span className="dvd-submark">VIDEO</span>
-              </>
-            )}
+            <img
+              src={resolvedLogoSrc}
+              alt={logoSrc ? t.customLogoAlt : "DVD logo"}
+              className="dvd-image"
+              style={{
+                filter:
+                  colorMode === "cycle"
+                    ? `hue-rotate(${colorIndexRef.current * 45}deg) saturate(1.3)`
+                    : "none"
+              }}
+            />
           </div>
         </section>
       </div>
@@ -321,15 +337,44 @@ export function DvdScreen() {
             </select>
           </label>
 
-          <label>
-            <span>{t.customLogoUrl}</span>
+          <div className="logo-upload-group">
+            <span>{t.customLogo}</span>
             <input
-              type="url"
-              placeholder={t.customLogoPlaceholder}
-              value={logoSrc}
-              onChange={(event) => setLogoSrc(event.target.value.trim())}
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              className="file-input-hidden"
+              onChange={(event) => {
+                const file = event.target.files?.[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                  const result = e.target?.result;
+                  if (typeof result === "string") setLogoSrc(result);
+                };
+                reader.readAsDataURL(file);
+              }}
             />
-          </label>
+            <button
+              type="button"
+              className="upload-button"
+              onClick={() => fileInputRef.current?.click()}
+            >
+              {t.uploadLogo}
+            </button>
+            {logoSrc && (
+              <button
+                type="button"
+                className="reset-button"
+                onClick={() => {
+                  setLogoSrc("");
+                  if (fileInputRef.current) fileInputRef.current.value = "";
+                }}
+              >
+                {t.resetLogo}
+              </button>
+            )}
+          </div>
 
           <button className="pause-button" onClick={() => setIsPaused((current) => !current)} type="button">
             {isPaused ? t.resume : t.pause}

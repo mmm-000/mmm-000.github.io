@@ -49,16 +49,6 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  display: grid;
-  place-content: center;
-  justify-items: center;
-  gap: 0.1rem;
-  border: 0.26rem solid currentColor;
-  border-radius: 0.6rem;
-  text-shadow: 0 0 12px color-mix(in srgb, currentColor 72%, transparent);
-  box-shadow:
-    0 0 16px color-mix(in srgb, currentColor 45%, transparent),
-    inset 0 0 12px color-mix(in srgb, currentColor 35%, transparent);
   will-change: transform;
 }
 
@@ -132,6 +122,35 @@ body {
 .pause-button {
   cursor: pointer;
   font-weight: 600;
+}
+
+.logo-upload-group {
+  display: grid;
+  gap: 0.45rem;
+  font-size: 0.88rem;
+}
+
+.file-input-hidden {
+  display: none;
+}
+
+.upload-button,
+.reset-button {
+  width: 100%;
+  border: 1px solid #7588f9;
+  border-radius: 0.5rem;
+  background: #121a45;
+  color: #f5f7ff;
+  padding: 0.55rem 0.7rem;
+  cursor: pointer;
+  font-weight: 600;
+  text-align: center;
+}
+
+.reset-button {
+  border-color: #f94a4a;
+  background: #2a0e1a;
+  color: #ff9e9e;
 }
 
 @media (max-width: 768px) {
