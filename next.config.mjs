@@ -14,7 +14,10 @@ const nextConfig = {
     unoptimized: true
   },
   basePath: resolvedBasePath,
-  assetPrefix: resolvedBasePath || undefined
+  assetPrefix: resolvedBasePath || undefined,
+  env: {
+    NEXT_PUBLIC_BASE_PATH: resolvedBasePath
+  }
 };
 
 export default nextConfig;
