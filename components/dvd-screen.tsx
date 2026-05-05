@@ -21,8 +21,8 @@ const COLLISION_COLORS = [
   "#ff6ad5"
 ];
 
-const DEFAULT_SPEED = 280;
-const DEFAULT_SIZE = 170;
+const DEFAULT_SPEED = 50;
+const DEFAULT_SIZE = 100;
 
 const UI_TEXT = {
   ja: {
