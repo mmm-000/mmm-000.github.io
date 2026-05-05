@@ -85,17 +85,28 @@ export function DvdScreen() {
   const [language, setLanguage] = useState<UiLanguage>("ja");
   const [color, setColor] = useState<string>(COLLISION_COLORS[0]);
   const [logoSrc, setLogoSrc] = useState<string>("");
+  const [logoAspectRatio, setLogoAspectRatio] = useState<number>(0.44);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [isPanelOpen, setIsPanelOpen] = useState<boolean>(true);
   const [stageSize, setStageSize] = useState<Position>({ x: 0, y: 0 });
 
-  const logoHeight = useMemo<number>(() => Math.round(logoWidth * 0.44), [logoWidth]);
+  const logoHeight = useMemo<number>(() => Math.round(logoWidth * logoAspectRatio), [logoWidth, logoAspectRatio]);
   const ratioValue = useMemo<number>(() => (screenRatio === "4:3" ? 4 / 3 : 16 / 9), [screenRatio]);
   const t = UI_TEXT[language];
 
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
   const defaultLogoSrc = `${basePath}/dvd-logo.png`;
   const resolvedLogoSrc = logoSrc || defaultLogoSrc;
+
+  useEffect(() => {
+    const img = new Image();
+    img.onload = () => {
+      if (img.naturalWidth > 0 && img.naturalHeight > 0) {
+        setLogoAspectRatio(img.naturalHeight / img.naturalWidth);
+      }
+    };
+    img.src = resolvedLogoSrc;
+  }, [resolvedLogoSrc]);
 
   useEffect(() => {
     if (!stageAreaRef.current) {
@@ -368,6 +379,7 @@ export function DvdScreen() {
                 className="reset-button"
                 onClick={() => {
                   setLogoSrc("");
+                  setLogoAspectRatio(0.44);
                   if (fileInputRef.current) fileInputRef.current.value = "";
                 }}
               >
