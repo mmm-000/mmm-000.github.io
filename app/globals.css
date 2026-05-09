@@ -153,6 +153,25 @@ body {
   color: #ff9e9e;
 }
 
+.support-link {
+  display: block;
+  width: 100%;
+  border: 1px solid #f5c842;
+  border-radius: 0.5rem;
+  background: #2a2510;
+  color: #f5d76e;
+  padding: 0.55rem 0.7rem;
+  font-weight: 600;
+  font-size: 0.88rem;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.support-link:hover {
+  background: #3d3518;
+}
+
 @media (max-width: 768px) {
   body {
     overflow: auto;

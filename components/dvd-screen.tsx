@@ -43,7 +43,8 @@ const UI_TEXT = {
     resetLogo: "デフォルトに戻す",
     customLogoAlt: "カスタムDVDロゴ",
     pause: "一時停止",
-    resume: "再開"
+    resume: "再開",
+    supportMessage: "☕ 開発者を応援する"
   },
   en: {
     controlsTitle: "DVD Sleep Controls",
@@ -63,7 +64,8 @@ const UI_TEXT = {
     resetLogo: "Reset to default",
     customLogoAlt: "Custom DVD logo",
     pause: "Pause",
-    resume: "Resume"
+    resume: "Resume",
+    supportMessage: "☕ Support the developer"
   }
 } as const;
 
@@ -391,6 +393,15 @@ export function DvdScreen() {
           <button className="pause-button" onClick={() => setIsPaused((current) => !current)} type="button">
             {isPaused ? t.resume : t.pause}
           </button>
+
+          <a
+            href="https://ofuse.me/04b98ddd"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="support-link"
+          >
+            {t.supportMessage}
+          </a>
         </div>
       </aside>
     </main>
