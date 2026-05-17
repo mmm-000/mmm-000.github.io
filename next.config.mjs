@@ -4,8 +4,15 @@ const repoName = process.env.GITHUB_REPOSITORY
   : "";
 
 const explicitBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
+// User/org Pages (repo name: username.github.io) is served from domain root.
+const isUserOrgPagesRepo = repoName.endsWith(".github.io");
+
 const resolvedBasePath =
-  explicitBasePath || (process.env.NODE_ENV === "production" && repoName ? `/${repoName}` : "");
+  explicitBasePath ||
+  (process.env.NODE_ENV === "production" && repoName && !isUserOrgPagesRepo
+    ? `/${repoName}`
+    : "");
 
 const nextConfig = {
   output: "export",

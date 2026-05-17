@@ -17,17 +17,15 @@ npm run build
 
 This project uses static export (`output: "export"`), so build output is generated in `out/`.
 
-## Base path behavior
+## GitHub Pages URL
 
-- For project pages (`https://<user>.github.io/<repo>/`), `next.config.mjs` auto-resolves `basePath` from `GITHUB_REPOSITORY` in production builds.
-- You can override it explicitly with `NEXT_PUBLIC_BASE_PATH`.
+| Repository name | Published URL |
+|---|---|
+| `mmm-000.github.io` | `https://mmm-000.github.io/` (root) |
+| `dvd` (or other project repo) | `https://mmm-000.github.io/<repo>/` |
 
-Example:
-
-```bash
-NEXT_PUBLIC_BASE_PATH=/my-repo npm run build
-```
+`next.config.mjs` sets `basePath` automatically from `GITHUB_REPOSITORY` in CI builds.
 
 ## Custom logo
 
-The UI provides a `Custom logo URL` field. Leave it empty to use the built-in DVD text logo.
+Use **画像を選択** in the control panel, or leave it empty to use the default `public/dvd-logo.png`.
