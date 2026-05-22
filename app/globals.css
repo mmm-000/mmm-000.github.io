@@ -172,6 +172,71 @@ body {
   background: #3d3518;
 }
 
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  padding-top: 0.25rem;
+  border-top: 1px solid #4250a0;
+  margin-top: 0.25rem;
+}
+
+.site-footer-link {
+  font-size: 0.82rem;
+  color: #a8b8ff;
+  text-decoration: none;
+}
+
+.site-footer-link:hover {
+  text-decoration: underline;
+}
+
+body:has(.static-page-root) {
+  overflow: auto;
+  height: auto;
+  min-height: 100%;
+}
+
+.static-page-root {
+  min-height: 100dvh;
+  padding: 1.25rem;
+}
+
+.static-page {
+  max-width: 42rem;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.static-page h1 {
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+}
+
+.static-page h2 {
+  margin: 1.5rem 0 0.5rem;
+  font-size: 1.1rem;
+}
+
+.static-page p,
+.static-page ul {
+  margin: 0 0 1rem;
+  font-size: 0.95rem;
+  color: #d8dcff;
+}
+
+.static-page ul {
+  padding-left: 1.25rem;
+}
+
+.static-page a {
+  color: #a8b8ff;
+}
+
+.static-page-back {
+  margin-bottom: 1.25rem !important;
+}
+
 @media (max-width: 768px) {
   body {
     overflow: auto;

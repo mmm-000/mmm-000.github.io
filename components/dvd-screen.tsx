@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { SiteFooter } from "./site-footer";
 
 type ColorMode = "cycle" | "mono";
 type ScreenRatio = "4:3" | "16:9";
@@ -44,7 +46,9 @@ const UI_TEXT = {
     customLogoAlt: "カスタムDVDロゴ",
     pause: "一時停止",
     resume: "再開",
-    supportMessage: "☕ 開発者を応援する"
+    supportMessage: "☕ 開発者を応援する",
+    about: "このサイトについて",
+    privacy: "プライバシーポリシー"
   },
   en: {
     controlsTitle: "DVD Sleep Controls",
@@ -65,7 +69,9 @@ const UI_TEXT = {
     customLogoAlt: "Custom DVD logo",
     pause: "Pause",
     resume: "Resume",
-    supportMessage: "☕ Support the developer"
+    supportMessage: "☕ Support the developer",
+    about: "About",
+    privacy: "Privacy Policy"
   }
 } as const;
 
@@ -402,6 +408,8 @@ export function DvdScreen() {
           >
             {t.supportMessage}
           </a>
+
+          <SiteFooter aboutLabel={t.about} privacyLabel={t.privacy} />
         </div>
       </aside>
     </main>
