@@ -48,7 +48,12 @@ const UI_TEXT = {
     resume: "再開",
     supportMessage: "☕ 開発者を応援する",
     about: "このサイトについて",
-    privacy: "プライバシーポリシー"
+    privacy: "プライバシーポリシー",
+    homeTitle: "DVD スリープ画面シミュレーター",
+    homeLead:
+      "平成のテレビや DVD プレーヤーにあった「DVD ロゴが画面内を跳ね返る」スリープ画面を、ブラウザで再現したサイトです。速度やロゴサイズの調整、カスタム画像の利用ができます。",
+    homeNote:
+      "本ページは鑑賞・操作を主目的としたコンテンツです。設定パネルは操作補助であり、サイトの説明はこのテキストおよび About ページに記載しています。"
   },
   en: {
     controlsTitle: "DVD Sleep Controls",
@@ -71,7 +76,12 @@ const UI_TEXT = {
     resume: "Resume",
     supportMessage: "☕ Support the developer",
     about: "About",
-    privacy: "Privacy Policy"
+    privacy: "Privacy Policy",
+    homeTitle: "DVD Sleep Screen Simulator",
+    homeLead:
+      "This site recreates the classic DVD logo screensaver that bounced around CRT TVs and DVD players. You can adjust speed, logo size, and upload your own image.",
+    homeNote:
+      "This page is primarily for viewing and interaction. Settings are controls only; site information is provided in this text and on the About page."
   }
 } as const;
 
@@ -256,6 +266,12 @@ export function DvdScreen() {
   return (
     <main className="screen-root">
       <div ref={stageAreaRef} className="stage-area">
+        <header className="home-intro">
+          <h1>{t.homeTitle}</h1>
+          <p>{t.homeLead}</p>
+          <p className="home-intro-note">{t.homeNote}</p>
+        </header>
+
         <section
           ref={stageRef}
           className="dvd-stage"
@@ -287,6 +303,15 @@ export function DvdScreen() {
             />
           </div>
         </section>
+
+        <nav className="home-site-bar" aria-label="Site pages">
+          <Link href="/about/" className="home-site-bar-link">
+            {t.about}
+          </Link>
+          <Link href="/privacy/" className="home-site-bar-link">
+            {t.privacy}
+          </Link>
+        </nav>
       </div>
 
       <aside className={`control-panel ${isPanelOpen ? "open" : "closed"}`}>

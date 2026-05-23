@@ -33,11 +33,61 @@ body {
   position: relative;
   min-width: 0;
   min-height: 0;
-  display: grid;
-  place-items: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  overflow-y: auto;
+}
+
+.home-intro {
+  width: 100%;
+  max-width: 52rem;
+  padding: 0 0.25rem;
+}
+
+.home-intro h1 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1rem, 2.2vw, 1.35rem);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.home-intro p {
+  margin: 0 0 0.45rem;
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: #c5cbef;
+}
+
+.home-intro-note {
+  font-size: 0.8rem !important;
+  color: #9aa3d4 !important;
+}
+
+.home-site-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 1.25rem;
+  width: 100%;
+  max-width: 52rem;
+  padding: 0.35rem 0.25rem 0;
+  border-top: 1px solid #2a315f;
+}
+
+.home-site-bar-link {
+  font-size: 0.86rem;
+  color: #a8b8ff;
+  text-decoration: none;
+}
+
+.home-site-bar-link:hover {
+  text-decoration: underline;
 }
 
 .dvd-stage {
+  margin: auto 0;
   position: relative;
   overflow: hidden;
   border: 1px solid #2a315f;

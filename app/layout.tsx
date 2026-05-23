@@ -3,7 +3,8 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "DVD Sleep Screen",
-  description: "Classic bouncing DVD logo simulation with controls."
+  description:
+    "Browser recreation of the classic bouncing DVD screensaver with adjustable speed, logo size, and custom images."
 };
 
 type RootLayoutProps = Readonly<{
@@ -12,7 +13,7 @@ type RootLayoutProps = Readonly<{
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en">
+    <html lang="ja">
       <head>
         <script
           async
